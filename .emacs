@@ -12,6 +12,8 @@
  '(inhibit-startup-screen t)
  '(make-backup-files nil)
  '(mouse-wheel-scroll-amount (quote (1 ((shift) . 1) ((control)))))
+ '(vhdl-basic-offset 3)
+ '(vhdl-standard (quote (93 nil)))
  '(whitespace-style (quote (face tabs trailing empty))))
 (custom-set-faces
   ;; custom-set-faces was added by Custom.
