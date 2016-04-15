@@ -104,6 +104,7 @@ Return the window width delta."
  '(buffers-menu-max-size nil)
  '(c-basic-offset 4)
  '(column-number-mode t)
+ '(cua-mode t nil (cua-base))
  '(current-language-environment "UTF-8")
  '(delete-selection-mode t)
  '(horizontal-scroll-bar-mode t)
