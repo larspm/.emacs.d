@@ -14,10 +14,8 @@
 
 (global-set-key [mouse-8]     'highlight-symbol-prev)
 (global-set-key [mouse-9]     'highlight-symbol-next)
-(global-set-key [mouse-4]     'highlight-symbol-prev)
-(global-set-key [mouse-5]     'highlight-symbol-next)
 
-(global-set-key [mouse-3]     'ggtags-find-tag-dwim-window-under-mouse)
+(global-set-key [mouse-3]     'xref-find-tag-window-under-mouse)
 
 (global-set-key [(control mouse-4)]     'highlight-symbol-prev-highlighted)
 (global-set-key [(control mouse-5)]     'highlight-symbol-next-highlighted)
@@ -42,16 +40,16 @@
       (other-window 1)
       (ggtags-find-tag-dwim tag))))
 
-(defun ggtags-find-tag-dwim-window-under-mouse ()
+(defun xref-find-tag-window-under-mouse ()
   (interactive)
   (let ((pos (mouse-position))
-        (tag (ggtags-tag-at-point))
+        (tag (xref-backend-identifier-at-point (xref-find-backend)))
         (buf (current-buffer)))
     (when (and tag pos)
       (select-frame (car pos))
       (select-window (window-at (cadr pos) (cddr pos)))
       (set-buffer buf)
-      (ggtags-find-tag-dwim tag))))
+      (xref-find-definitions tag))))
 
 
 (defun kill-star-buffers ()
@@ -92,7 +90,6 @@ Return the window width delta."
 
 (add-hook 'first-change-hook 'whitespace-mode)
 
-(setq-default cursor-type 'bar)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -106,12 +103,14 @@ Return the window width delta."
  '(column-number-mode t)
  '(cua-mode t nil (cua-base))
  '(current-language-environment "UTF-8")
+ '(cursor-type 'bar)
  '(delete-selection-mode t)
  '(horizontal-scroll-bar-mode t)
  '(ido-mode 'both nil (ido))
  '(indent-tabs-mode nil)
  '(inhibit-startup-screen t)
  '(make-backup-files nil)
+ '(menu-bar-mode nil)
  '(mouse-wheel-scroll-amount '(1 ((shift) . 1) ((control))))
  '(package-archives
    '(("gnu" . "http://elpa.gnu.org/packages/")
