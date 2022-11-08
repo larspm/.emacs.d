@@ -100,7 +100,7 @@ Return the window width delta."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(auto-save-default nil)
- '(buffer-file-coding-system (quote utf-8-unix) t)
+ '(buffer-file-coding-system 'utf-8-unix t)
  '(buffers-menu-max-size nil)
  '(c-basic-offset 4)
  '(column-number-mode t)
@@ -108,20 +108,19 @@ Return the window width delta."
  '(current-language-environment "UTF-8")
  '(delete-selection-mode t)
  '(horizontal-scroll-bar-mode t)
- '(ido-mode (quote both) nil (ido))
+ '(ido-mode 'both nil (ido))
  '(indent-tabs-mode nil)
  '(inhibit-startup-screen t)
  '(make-backup-files nil)
- '(mouse-wheel-scroll-amount (quote (1 ((shift) . 1) ((control)))))
+ '(mouse-wheel-scroll-amount '(1 ((shift) . 1) ((control))))
  '(package-archives
-   (quote
-    (("gnu" . "http://elpa.gnu.org/packages/")
-     ("melpa" . "http://melpa.org/packages/"))))
- '(package-selected-packages (quote (highlight-symbol ggtags)))
+   '(("gnu" . "http://elpa.gnu.org/packages/")
+     ("melpa" . "http://melpa.org/packages/")))
+ '(package-selected-packages '(highlight-symbol ggtags))
  '(show-paren-mode t)
  '(tool-bar-mode nil)
  '(truncate-lines t)
- '(whitespace-style (quote (face tabs trailing empty))))
+ '(whitespace-style '(face tabs trailing empty)))
 
 (kill-buffer "*Messages*")
 
