@@ -6,10 +6,6 @@
 
 (global-set-key (kbd "<f9>")    'kill-star-buffers)
 (global-set-key (kbd "<f10>")   'next-sym)
-(global-set-key (kbd "<f2>")    'ggtags-find-tag-dwim-window-under-mouse)
-(global-set-key (kbd "<f11>")   'ggtags-find-tag-dwim-other-window)
-(global-set-key (kbd "C-<f11>") 'ggtags-find-tag-dwim)
-(global-set-key (kbd "M-.")     'etags-select-find-tag)
 (global-set-key (kbd "<f12>")   'kill-this-buffer)
 
 (global-set-key [mouse-8]     'highlight-symbol-prev)
@@ -26,11 +22,23 @@
 
 (global-set-key (kbd "C-z") 'undo)
 
+(global-set-key (kbd "C-c o") 'ace-window)
+(global-set-key (kbd "C-c p") 'ggtags-find-tag-aw)
+
 (add-to-list 'auto-mode-alist '("\\.m$" . octave-mode))
 
 (defun ecwd ()
   (interactive)
   (w32-shell-execute "explore" default-directory))
+
+(defun ggtags-find-tag-aw ()
+  (interactive)
+  (let ((tag (xref-backend-identifier-at-point (xref-find-backend)))
+        (buf (current-buffer)))
+    (when tag
+      (select-window (aw-select "foo"))
+      (set-buffer buf)
+      (xref-find-definitions tag))))
 
 (defun ggtags-find-tag-dwim-other-window ()
   (interactive)
@@ -38,7 +46,7 @@
     (message tag)
     (when tag
       (other-window 1)
-      (ggtags-find-tag-dwim tag))))
+      (xref-find-definitions tag))))
 
 (defun xref-find-tag-window-under-mouse ()
   (interactive)
@@ -96,6 +104,7 @@ Return the window width delta."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(auto-dim-other-buffers-mode t)
  '(auto-save-default nil)
  '(buffer-file-coding-system 'utf-8-unix t)
  '(buffers-menu-max-size nil)
@@ -106,6 +115,7 @@ Return the window width delta."
  '(cursor-type 'bar)
  '(delete-selection-mode t)
  '(horizontal-scroll-bar-mode t)
+ '(ido-auto-merge-work-directories-length -1)
  '(ido-mode 'both nil (ido))
  '(indent-tabs-mode nil)
  '(inhibit-startup-screen t)
@@ -115,21 +125,24 @@ Return the window width delta."
  '(package-archives
    '(("gnu" . "http://elpa.gnu.org/packages/")
      ("melpa" . "http://melpa.org/packages/")))
- '(package-selected-packages '(highlight-symbol ggtags))
+ '(package-selected-packages
+   '(autocrypt multiple-cursors highlight-symbol auto-dim-other-buffers ace-window))
+ '(pixel-scroll-mode t)
+ '(pixel-scroll-precision-interpolate-page t)
+ '(pixel-scroll-precision-interpolation-total-time 0.2)
+ '(pixel-scroll-precision-mode t)
  '(show-paren-mode t)
  '(tool-bar-mode nil)
  '(truncate-lines t)
  '(whitespace-style '(face tabs trailing empty)))
 
-(kill-buffer "*Messages*")
-
-(add-hook 'c-mode-common-hook
-          (lambda ()
-            (when (derived-mode-p 'c-mode 'c++-mode 'java-mode)
-              (ggtags-mode 1))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+(use-package eglot :ensure t)
+(add-to-list 'eglot-server-programs
+             '(vhdl-mode . ("vhdl_ls")))
