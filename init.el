@@ -1,8 +1,7 @@
 (package-initialize)
 
-(global-set-key [mouse-13]  'highlight-symbol-at-point)
-(global-set-key [mouse-15]  'highlight-symbol-remove-all)
-
+(global-set-key (kbd "<C-mouse-9>") 'highlight-symbol-at-point)
+(global-set-key (kbd "<C-mouse-8>") 'highlight-symbol-remove-all)
 
 (global-set-key (kbd "<f9>")    'kill-star-buffers)
 (global-set-key (kbd "<f10>")   'next-sym)
@@ -26,6 +25,8 @@
 (global-set-key (kbd "C-c p") 'ggtags-find-tag-aw)
 
 (add-to-list 'auto-mode-alist '("\\.m$" . octave-mode))
+
+(set-frame-parameter nil 'alpha-background 90)
 
 (defun ecwd ()
   (interactive)
@@ -113,6 +114,9 @@ Return the window width delta."
  '(cua-mode t nil (cua-base))
  '(current-language-environment "UTF-8")
  '(cursor-type 'bar)
+ '(custom-enabled-themes '(wombat))
+ '(custom-safe-themes
+   '("ab04c00a7e48ad784b52f34aa6bfa1e80d0c3fcacc50e1189af3651013eb0d58" "a0feb1322de9e26a4d209d1cfa236deaf64662bb604fa513cca6a057ddf0ef64" default))
  '(delete-selection-mode t)
  '(horizontal-scroll-bar-mode t)
  '(ido-auto-merge-work-directories-length -1)
@@ -121,7 +125,7 @@ Return the window width delta."
  '(inhibit-startup-screen t)
  '(make-backup-files nil)
  '(menu-bar-mode nil)
- '(mouse-wheel-scroll-amount '(1 ((shift) . 1) ((control))))
+ '(mouse-wheel-scroll-amount '(1))
  '(package-archives
    '(("gnu" . "http://elpa.gnu.org/packages/")
      ("melpa" . "http://melpa.org/packages/")))
